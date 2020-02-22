@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-// import { Content } from './components/Content/Content';
-// import {  };
+import 'bootswatch/dist/lux/bootstrap.min.css';
+import { Content } from './components/Content/Content';
+import { Header } from './components/Header/Header';
 
 class App extends React.Component {
   state = {};
@@ -9,9 +10,9 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {/* <Header />
+        <h1>Calendar</h1>
+        <Header />
         <Content />
-        <Modal /> */}
       </>
     );
   }
