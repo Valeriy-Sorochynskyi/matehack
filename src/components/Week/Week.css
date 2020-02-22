@@ -1,33 +1,29 @@
-.table .table__heading-column {
-  padding: 0;
+.date__heading {
+  width: 100%;
   text-align: center;
-  line-height: 40px;
+  margin: 15px 0;
+}
+  
+.table .table__heading-column {
+  text-align: center;
+  height: 60px;
+  padding: 10px;
 }
 
 .table .table__body-column {
-  border: 2px solid #8992b1;
-  line-height: 40px;
+  line-height: 60px;
   width: 12.5%;
   padding: 0;
 }
 
 .table .table__row {
   height: 40px;
-  border: 2px solid #8992b1;
 }
 
 .table .table__column {
   width: 12.5%;
-  height: 40px;
-  border: 2px solid #8992b1;
+  height: 60px;
+  border-left: 1px solid rgb(218, 218, 218);
+  border-right: 1px solid lightgrey;
   padding: 0;
-}
-
-.table .table__button {
-  display: block;
-  width: 100%;
-  padding: 0;
-  height: 100%;
-  background-color: #fff;
-  border-style: none;
 }
