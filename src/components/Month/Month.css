@@ -7,6 +7,28 @@
   background: #1f9fcf;
 }
 
+.table__scope .table__button {
+  padding: 8px;
+}
+
+.table__scope .table__cell {
+  padding: 0;
+  height: 100px;
+}
+
+.table__button {
+  background: none;
+}
+
+.table__cell:hover .table__button {
+  background-color: rgba(0,0,0, 0.01);
+}
+
+.table__cell:hover {
+  color: #343a40;
+  background-color: rgba(52,58,64, 0.5);
+}
+
 .table__button {
   background: none;
   border: none;
