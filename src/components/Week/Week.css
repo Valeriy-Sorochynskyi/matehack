@@ -1,0 +1,26 @@
+.table .table__heading-column {
+  border: 2px solid #8992b1;
+}
+
+.table .table__body-column {
+  border: 2px solid #8992b1;
+  width: 12.5%;
+  padding: 0;
+}
+
+.table .table__row {
+  height: 40px;
+  border: 2px solid #8992b1;
+}
+
+.table .table__column {
+  border: 2px solid #8992b1;
+  padding: 0;
+}
+
+.table .table__button {
+  width: 100%;
+  padding: 0;
+  height: 34px;
+  border-style: none;
+}
