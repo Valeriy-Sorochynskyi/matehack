@@ -1,7 +1,7 @@
-const currentTime = new Date();
-const monthNow = currentTime.getMonth() + 1;
-const yearNow = currentTime.getFullYear();
-const monthes = [
+export const currentTime = new Date();
+export const monthNow = currentTime.getMonth() + 1;
+export const yearNow = currentTime.getFullYear();
+export const monthes = [ 
   'Январь',
   'Февраль',
   'Март',
@@ -25,6 +25,3 @@ export const daysTitle = [
   'Sat',
 ];
 
-export default {
-  currentTime, monthNow, yearNow, monthes, daysTitle,
-};
