@@ -26,7 +26,7 @@ class Week extends React.Component {
       const years = [];
       const initial = new Date(param.getTime());
 
-      for (let i = 1; i <= 7; i += 1) {
+      for (let i = 0; i <= 6; i += 1) {
         const first = initial.getDate() - initial.getDay() + i;
         const day = new Date(initial.setDate(first)).toISOString().slice(5, 7);
         const year = new Date(initial.setDate(first)).toISOString().slice(0, 4);
