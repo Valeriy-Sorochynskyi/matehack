@@ -1,3 +1,8 @@
 .day__cell_first-column {
   width: 10%;
 }
+
+.table td.day__cell_second-column {
+  padding: 0;
+  height: 60px;
+}

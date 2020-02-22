@@ -8,13 +8,13 @@ export class Content extends React.Component {
   state = {}
 
   render() {
-    const { content } = this.props;
+    const { content, date } = this.props;
 
     return (
       <div className="container">
-        {content === 'day' && <Day />}
-        {content === 'month' && <Month />}
-        {content === 'week' && <Week />}
+        {content === 'day' && <Day date={date} />}
+        {content === 'month' && <Month date={date} />}
+        {content === 'week' && <Week date={date} />}
       </div>
     );
   }
@@ -22,4 +22,5 @@ export class Content extends React.Component {
 
 Content.propTypes = {
   content: Proptypes.string.isRequired,
+  date: Proptypes.string.isRequired,
 };
