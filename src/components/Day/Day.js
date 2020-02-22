@@ -23,7 +23,7 @@ export class Day extends React.Component {
           </thead>
           <tbody>
             {hours.map(hour => (
-              <tr className="table-default">
+              <tr key={`day${hour}`} className="table-default">
                 <td className="day__cell day__cell_first-column">
                   {hour < 10 ? `0${hour}` : `${hour}`}
                   :00
