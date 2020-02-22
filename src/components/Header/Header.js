@@ -8,11 +8,11 @@ export class Header extends React.Component {
   state = {};
 
   render() {
-    const { getContent } = this.props;
+    const { getContent, goNext, goPrev, goToday } = this.props;
 
     return (
       <header className="header">
-        <Pagination />
+        <Pagination goNext={goNext} goPrev={goPrev} goToday={goToday} />
         <Tabs getContent={getContent} />
       </header>
     );
@@ -21,4 +21,7 @@ export class Header extends React.Component {
 
 Header.propTypes = {
   getContent: PropTypes.func.isRequired,
+  goNext: PropTypes.func.isRequired,
+  goPrev: PropTypes.func.isRequired,
+  goToday: PropTypes.func.isRequired,
 };

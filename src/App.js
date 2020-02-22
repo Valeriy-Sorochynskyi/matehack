@@ -17,30 +17,39 @@ class App extends React.Component {
   getContent = (event) => {
     const { name } = event.target;
 
-    switch (name) {
-      case 'day': {
-        this.setState({
-          content: 'day',
-        });
-        break;
-      }
+    this.setState({
+      content: name,
+    });
+  }
 
-      case 'month': {
-        this.setState({
-          content: 'month',
-        });
-        break;
-      }
+  goNext = () => {
+    const { currentDate } = this.state;
+    const year = currentDate.getFullYear();
+    const date = currentDate.getDate();
 
-      case 'week': {
-        this.setState({
-          content: 'week',
-        });
-        break;
-      }
+    const nextMonth = new Date(currentDate.getTime()).getMonth() + 1;
 
-      default: break;
-    }
+    this.setState({
+      currentDate: new Date(year, nextMonth, date),
+    });
+  }
+
+  goPrev = () => {
+    const { currentDate } = this.state;
+    const year = currentDate.getFullYear();
+    const date = currentDate.getDate();
+
+    const nextMonth = new Date(currentDate.getTime()).getMonth() - 1;
+
+    this.setState({
+      currentDate: new Date(year, nextMonth, date),
+    });
+  }
+
+  goToday = () => {
+    this.setState({
+      currentDate: new Date(),
+    });
   }
 
   render() {
@@ -52,6 +61,13 @@ class App extends React.Component {
         <h1>Calendar</h1>
 
         <Header getContent={this.getContent} date={currentDate} />
+        <Header
+          getContent={this.getContent}
+          date={currentDate}
+          goNext={this.goNext}
+          goPrev={this.goPrev}
+          goToday={this.goToday}
+        />
         <Content content={content} date={currentDate} />
       </>
     );
