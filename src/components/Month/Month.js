@@ -1,12 +1,33 @@
 import React from 'react';
 import './Month.css';
 import 'bootswatch/dist/lux/bootstrap.min.css';
+import PropTypes from 'prop-types';
 import { Button } from '../Button/Button';
 import {
-  monthNow,
-  yearNow,
+  months,
   daysTitle,
 } from '../../utils/constants';
+
+// const todos = [
+//   {
+//     id: 123456789,
+//     title: 'Сelebration of the end of the hackathon 1',
+//     description: 'Duis lobortis massa imperdiet quam. '
+//         + 'Praesent ut ligula non mi varius sagittis.',
+//   },
+//   {
+//     id: 123456790,
+//     title: 'Сelebration of the end of the hackathon 2',
+//     description: 'Duis lobortis massa imperdiet quam. '
+//         + 'Praesent ut ligula non mi varius sagittis.',
+//   },
+//   {
+//     id: 123456791,
+//     title: 'Сelebration of the end of the hackathon 3',
+//     description: 'Duis lobortis massa imperdiet quam. '
+//         + 'Praesent ut ligula non mi varius sagittis.',
+//   },
+// ];
 
 class Month extends React.Component {
   state = {
@@ -14,8 +35,12 @@ class Month extends React.Component {
   };
 
   componentDidMount() {
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
     this.setState({
-      daysArr: [...this.getDaysArr(yearNow, monthNow)],
+      daysArr: [...this.getDaysArr(year, month)],
     });
   }
 
@@ -39,21 +64,25 @@ class Month extends React.Component {
     const currentMonth = [...Array(initialDate).keys()];
     const clearDayStart = () => {
       const clearArr = [];
+      let count = -1;
 
       while (clearArr.length <= daysTitle.indexOf(startDay) - 1) {
-        clearArr.push('');
+        clearArr.push(new Date(year, month - 1, count).getDate());
+        count -= 1;
       }
 
-      return clearArr;
+      return clearArr.reverse();
     };
 
     const clearDayEnd = () => {
       const clearArr = [];
+      let count = initialDate + 1;
 
       while (clearArr.length <= initialDateCel
       - daysTitle.indexOf(startDay) - 1
       - currentMonth.length) {
-        clearArr.push('');
+        clearArr.push(new Date(year, month - 1, count).getDate() - 1);
+        count += 1;
       }
 
       return clearArr;
@@ -77,13 +106,27 @@ class Month extends React.Component {
     console.dir(e.target.name);
   }
 
+  setName = (year, month, day, hour) => {
+    if (hour) {
+      return new Date(year, month, (day + 1), hour).valueOf();
+    }
+
+    return new Date(year, month, (day + 1)).valueOf();
+  }
+
   render() {
     const { daysArr } = this.state;
-    // const { date } = this.props;
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
 
     return (
       <>
-        {/* <h2>{date}</h2> */}
+        <h2 className="title">
+          {year}
+          {' '}
+          {months[month]}
+        </h2>
         <table className="table">
           <thead>
             <tr className="table__scope">
@@ -95,15 +138,16 @@ class Month extends React.Component {
           <tbody>
             <tr className="table__scope">
               {daysArr.map(day => (
-                <td className="table__cell" key={`day${day + 1}`}>
+                <td
+                  className="table__cell"
+                  key={`month${this.setName(year, month, day)}`}
+                >
                   <Button
                     onClick={this.clickOnDay}
-                    btnName={day === ''
-                      ? ''
-                      : `${yearNow}-${monthNow}-${(day + 1)}`}
+                    btnName={this.setName(year, month, day)}
                   >
                     <span className="badge badge-primary badge-pill">
-                      { day !== '' ? day + 1 : day}
+                      {day + 1}
                     </span>
                   </Button>
                 </td>
@@ -117,3 +161,10 @@ class Month extends React.Component {
 }
 
 export default Month;
+
+Month.propTypes = {
+  date: PropTypes.shape({
+    getFullYear: PropTypes.func.isRequired,
+    getMonth: PropTypes.func.isRequired,
+  }).isRequired,
+};
