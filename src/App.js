@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-// import { Content } from './components/Content/Content';
+import { Content } from './components/Content/Content';
 // import {  };
 
 class App extends React.Component {
@@ -9,8 +9,10 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {/* <Header />
         <Content />
+
+        {/* <Header />
+
         <Modal /> */}
       </>
     );
