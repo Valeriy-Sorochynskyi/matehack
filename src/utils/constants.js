@@ -15,14 +15,14 @@ const monthes = [
   'Ноябрь',
   'Декабрь',
 ];
-const daysTitle = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+export const daysTitle = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
 ];
 
 export default {
