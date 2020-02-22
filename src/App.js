@@ -15,30 +15,9 @@ class App extends React.Component {
   getContent = (event) => {
     const { name } = event.target;
 
-    switch (name) {
-      case 'day': {
-        this.setState({
-          content: 'day',
-        });
-        break;
-      }
-
-      case 'month': {
-        this.setState({
-          content: 'month',
-        });
-        break;
-      }
-
-      case 'week': {
-        this.setState({
-          content: 'week',
-        });
-        break;
-      }
-
-      default: break;
-    }
+    this.setState({
+      content: name,
+    });
   }
 
   render() {
