@@ -1,11 +1,20 @@
 import React from 'react';
 import './App.css';
+// import { Content } from './components/Content/Content';
+// import {  };
 
-const App = () => (
-  <>
-    <h1>Hello hackaton!!!</h1>
-  </>
+class App extends React.Component {
+  state = {};
 
-);
+  render() {
+    return (
+      <>
+        {/* <Header />
+        <Content />
+        <Modal /> */}
+      </>
+    );
+  }
+}
 
 export default App;
