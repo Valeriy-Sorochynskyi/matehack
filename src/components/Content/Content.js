@@ -1,12 +1,15 @@
 import React from 'react';
 // import Proptypes from 'prop-types';
+import Month from '../Month/Month';
 
 export class Content extends React.Component {
   state = {}
 
   render() {
     return (
-      <h1>It is Content</h1>
+      <div className="container">
+        <Month />
+      </div>
     );
   }
 }
