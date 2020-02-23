@@ -60,7 +60,8 @@ class Week extends React.Component {
       return (
         <>
           <div className="date__heading">
-            {`${date[0]} - ${date[6]} ${months[month[6]]} ${years[6]}`}
+            {`${date[0]} ${months[month[0]]} ${years[0]} 
+            - ${date[6]} ${months[month[6]]} ${years[6]}`}
           </div>
           <table className="table table-hover">
             <thead>
