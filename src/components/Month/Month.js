@@ -171,14 +171,12 @@ export default Month;
 
 Month.propTypes = {
   openModal: PropTypes.func.isRequired,
-  todoList: PropTypes.arrayOf({
-    todo: PropTypes.shape({}).isRequired,
-  }).isRequired,
+  todoList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   date: PropTypes.shape({
-    getDate: PropTypes.func.isRequired,
-    getTime: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
-    getFullYear: PropTypes.func.isRequired,
-    getMonth: PropTypes.func.isRequired,
+    getDate: PropTypes.func,
+    getTime: PropTypes.func,
+    openModal: PropTypes.func,
+    getFullYear: PropTypes.func,
+    getMonth: PropTypes.func,
   }).isRequired,
 };
