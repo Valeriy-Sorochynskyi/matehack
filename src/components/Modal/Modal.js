@@ -2,7 +2,7 @@ import React from 'react';
 import './Modal.css';
 import PropTypes from 'prop-types';
 
-export const Modal = ({ onClose, onSave }) => (
+export const Modal = ({ onClose, onSave, changeHandler, title }) => (
   <div className="modal custom__modal">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
@@ -31,7 +31,9 @@ export const Modal = ({ onClose, onSave }) => (
                 <input
                   type="text"
                   placeholder="Input title"
+                  value={title}
                   className="form-control"
+                  onChange={changeHandler}
                 />
               </div>
             </div>
@@ -39,6 +41,7 @@ export const Modal = ({ onClose, onSave }) => (
             <button
               name="save"
               type="submit"
+              onClick={onSave}
               className="btn btn-primary"
             >
                   Save changes
@@ -65,4 +68,6 @@ Close
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  changeHandler: PropTypes.func.isRequired,
 };

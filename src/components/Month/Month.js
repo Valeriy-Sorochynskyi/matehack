@@ -88,14 +88,6 @@ class Month extends React.PureComponent {
     return days;
   }
 
-  setName = (year, month, day, hour) => {
-    if (hour) {
-      return new Date(year, month, (day + 1), hour).valueOf();
-    }
-
-    return new Date(year, month, (day + 1)).valueOf();
-  }
-
   render() {
     const { daysArr } = this.state;
     const { date, openModal, todoList } = this.props;
@@ -119,36 +111,54 @@ class Month extends React.PureComponent {
           </thead>
           <tbody>
             <tr className="table__scope">
-              {daysArr.map((day, index) => (
-                <td
-                  className="table__cell"
-                  key={String(Math.random())}
-                >
-                  <Button
-                    btnClass={
-                      (date.getDate() === day + 1)
-                          && 'day__active'
-                    }
-                    onClick={openModal}
-                    btnName={day === ''
-                      ? ''
-                      : `${this.setName(year, month, day)}`}
+              {daysArr.map((day, index) => {
+                const dateOfCell = new Date(this.props.date.getTime());
+
+                dateOfCell.setDate(day + 1);
+
+                return (
+                  <td
+                    className="table__cell"
+                    key={String(Math.random())}
                   >
-                    <span className="badge badge-primary badge-pill">
-                      {day === ''
+                    {
+                      day === ''
                         ? ''
-                        : day + 1 }
-                    </span>
-                    {todoList
-                      .filter(el => el.id === this.setName(year, month, day))
-                      .map(el => (
-                        <span className="badge badge-danger  badge-pill">
-                          {el.title}
-                        </span>
-                      ))}
-                  </Button>
-                </td>
-              ))}
+                        : (
+                          <Button
+                            btnClass={
+                              (date.getDate() === day + 1)
+                                && 'day__active'
+                            }
+                            onClick={() => openModal(day)}
+                          >
+                            <span className="badge badge-primary badge-pill">
+                              {day === ''
+                                ? ''
+                                : day + 1 }
+                            </span>
+                            {todoList
+                              .filter(el => el.date.getFullYear()
+                                    === dateOfCell.getFullYear()
+                                    && el.date.getMonth()
+                                    === dateOfCell.getMonth()
+                                    && el.date.getDate()
+                                    === dateOfCell.getDate())
+                              .map(el => (
+                                <span
+                                  key={el.id}
+                                  className="badge badge-danger  badge-pill"
+                                >
+                                  {el.title}
+                                </span>
+                              ))}
+                          </Button>
+                        )
+                    }
+
+                  </td>
+                );
+              })}
             </tr>
           </tbody>
         </table>
@@ -166,6 +176,7 @@ Month.propTypes = {
   }).isRequired,
   date: PropTypes.shape({
     getDate: PropTypes.func.isRequired,
+    getTime: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,
     getFullYear: PropTypes.func.isRequired,
     getMonth: PropTypes.func.isRequired,

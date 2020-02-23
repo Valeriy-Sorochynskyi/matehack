@@ -1,9 +1,10 @@
 import React from 'react';
+import { v4 } from 'uuid';
 import './utils/reset.css';
 import './App.css';
 // eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
-import { currentTime, todos } from './utils/constants';
+import { currentTime } from './utils/constants';
 import { Modal } from './components/Modal/Modal';
 import { Content } from './components/Content/Content';
 import { Header } from './components/Header/Header';
@@ -12,22 +13,21 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
+    title: '',
+    targetId: '',
     isModalOpen: false,
-    // title: '',
-    todoList: [...todos],
-
-    // targetId: '',
+    todoList: [],
   };
 
-  // componentDidMount() {
-  //   this.setState({
-  //     todos: tasks,
-  //   });
-  // }
+  componentDidMount() {
+    // this.setState({
+    //   todoList: tasks,
+    // });
+  }
 
-  // changeHandler = ({ target }) => {
-  //   this.setState({ title: target.value });
-  // }
+  changeHandler = ({ target }) => {
+    this.setState({ title: target.value });
+  }
 
   getContent = (event) => {
     const { name } = event.target;
@@ -125,19 +125,33 @@ class App extends React.Component {
     });
   }
 
-  clickOnDay = (e) => {
-    if (e.target.localName !== 'button') {
-      return;
-    }
-
+  clickOnDay = (day) => {
     this.setState({
       isModalOpen: true,
-      // targetId: e.target.name,
+      targetId: day,
     });
   }
 
   createEvent = (e) => {
     e.preventDefault();
+    this.setState((prevstate) => {
+      const { currentDate } = prevstate;
+      const eventDate = new Date(currentDate.getTime());
+
+      eventDate.setDate(+prevstate.targetId + 1);
+
+      return {
+        ...prevstate,
+        todoList: [...prevstate.todoList, {
+          id: v4(),
+          date: eventDate,
+          title: prevstate.title,
+        }],
+        title: '',
+        targetId: null,
+        isModalOpen: false,
+      };
+    });
   }
 
   goToday = () => {
@@ -147,12 +161,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { content, currentDate, isModalOpen, todoList } = this.state;
+    const { content, currentDate, isModalOpen, title, todoList } = this.state;
 
     return (
       <>
-        {isModalOpen && <Modal />}
-        <h1>Calendar</h1>
+        {/* {isModalOpen && <Modal title={title} />}
+        <h1>Calendar</h1> */}
 
         <Header
           getContent={this.getContent}
@@ -171,6 +185,8 @@ class App extends React.Component {
           <Modal
             onClose={this.handleModalClose}
             onSave={this.createEvent}
+            changeHandler={this.changeHandler}
+            title={title}
           />
         )}
       </>
