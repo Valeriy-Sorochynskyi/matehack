@@ -45,3 +45,7 @@
 .table__button:hover .badge {
   background: #1a82ae;
 }
+
+.table .table__scope .day__active {
+  background: rgba(26,130,174, 00.3);
+}

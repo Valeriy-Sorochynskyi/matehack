@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Button.css';
 
-export const Button = ({ onClick, btnName, children }) => (
+export const Button = ({ onClick, btnName, children, btnClass }) => (
   <button
-    onClick={onClick}
-    className="table__button"
+    onClick={e => onClick(e)}
+    className={`table__button ${btnClass}`}
     type="button"
     name={btnName}
   >
@@ -14,6 +14,7 @@ export const Button = ({ onClick, btnName, children }) => (
 );
 
 Button.propTypes = {
+  btnClass: PropTypes.string.isRequired,
   btnName: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType(
