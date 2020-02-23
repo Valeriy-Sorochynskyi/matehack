@@ -1,5 +1,6 @@
 import React from 'react';
 import './Month.css';
+import 'bootswatch/dist/lux/bootstrap.min.css';
 import PropTypes from 'prop-types';
 import { Button } from '../Button/Button';
 import {
@@ -55,12 +56,14 @@ class Month extends React.Component {
     const currentMonth = [...Array(initialDate).keys()];
     const clearDayStart = () => {
       const clearArr = [];
+      let count = -1;
 
       while (clearArr.length <= daysTitle.indexOf(startDay) - 1) {
-        clearArr.push('');
+        clearArr.push(new Date(year, month - 1, count).getDate());
+        count -= 1;
       }
 
-      return clearArr;
+      return clearArr.reverse();
     };
 
     const clearDayEnd = () => {
@@ -139,7 +142,7 @@ class Month extends React.Component {
                       : `${this.setName(year, month, day)}`}
                   >
                     <span className="badge badge-primary badge-pill">
-                      { day !== '' ? day + 1 : day}
+                      {day + 1}
                     </span>
                   </Button>
                 </td>

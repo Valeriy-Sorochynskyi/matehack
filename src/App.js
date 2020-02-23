@@ -4,6 +4,7 @@ import './App.css';
 // eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
 import { currentTime } from './utils/constants';
+import { Modal } from './components/Modal/Modal';
 import { Content } from './components/Content/Content';
 import { Header } from './components/Header/Header';
 
@@ -11,6 +12,7 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
+    isModalOpen: false,
   };
 
   getContent = (event) => {
@@ -22,27 +24,85 @@ class App extends React.Component {
   }
 
   goNext = () => {
-    const { currentDate } = this.state;
+    const { currentDate, content } = this.state;
     const year = currentDate.getFullYear();
     const date = currentDate.getDate();
+    const month = currentDate.getMonth();
 
-    const nextMonth = new Date(currentDate.getTime()).getMonth() + 1;
+    switch (content) {
+      case 'month': {
+        const nextMonth = new Date(currentDate.getTime()).getMonth() + 1;
 
-    this.setState({
-      currentDate: new Date(year, nextMonth, date),
-    });
+        this.setState({
+          currentDate: new Date(year, nextMonth, date),
+        });
+      }
+
+        break;
+
+      case 'week': {
+        const nextWeek = new Date(currentDate.getTime()).getDate() + 7;
+
+        this.setState({
+          currentDate: new Date(year, month, nextWeek),
+        });
+      }
+
+        break;
+
+      case 'day': {
+        const nextDay = new Date(currentDate.getTime()).getDate() + 1;
+
+        this.setState({
+          currentDate: new Date(year, month, nextDay),
+        });
+      }
+
+        break;
+
+      default: break;
+    }
   }
 
   goPrev = () => {
-    const { currentDate } = this.state;
+    const { currentDate, content } = this.state;
     const year = currentDate.getFullYear();
     const date = currentDate.getDate();
+    const month = currentDate.getMonth();
 
-    const nextMonth = new Date(currentDate.getTime()).getMonth() - 1;
+    switch (content) {
+      case 'month': {
+        const nextMonth = new Date(currentDate.getTime()).getMonth() - 1;
 
-    this.setState({
-      currentDate: new Date(year, nextMonth, date),
-    });
+        this.setState({
+          currentDate: new Date(year, nextMonth, date),
+        });
+      }
+
+        break;
+
+      case 'week': {
+        const nextWeek = new Date(currentDate.getTime()).getDate() - 7;
+
+        this.setState({
+          currentDate: new Date(year, month, nextWeek),
+        });
+      }
+
+        break;
+
+      case 'day': {
+        const nextDay = new Date(currentDate.getTime()).getDate() - 1;
+
+        this.setState({
+          currentDate: new Date(year, month, nextDay),
+        });
+      }
+
+        break;
+
+      default: break;
+    }
   }
 
   goToday = () => {
@@ -52,11 +112,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { content, currentDate } = this.state;
+    const { content, currentDate, isModalOpen } = this.state;
 
     return (
       <>
+        {isModalOpen && <Modal />}
         <h1>Calendar</h1>
+
         <Header
           getContent={this.getContent}
           date={currentDate}
