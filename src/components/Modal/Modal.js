@@ -1,12 +1,13 @@
 import React from 'react';
 import './Modal.css';
+import PropTypes from 'prop-types';
 
 export const Modal = ({ onClose }) => (
-  <div className="modal">
+  <div className="modal custom__modal">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">Modal title</h5>
+          <h5 className="modal-title">Add todo</h5>
           <button
             onClick={onClose}
             type="button"
@@ -18,16 +19,21 @@ export const Modal = ({ onClose }) => (
           </button>
         </div>
         <div className="modal-body">
-          <p>Modal body text goes here.</p>
+          <form action="#">
+            <input type="text" placeholder="Input title" />
+            <input type="textarea" placeholder="Input description" />
+          </form>
         </div>
         <div className="modal-footer">
           <button
+            name="save"
             type="button"
             className="btn btn-primary"
           >
 Save changes
           </button>
           <button
+            name="close"
             onClick={onClose}
             type="button"
             className="btn btn-secondary"
@@ -40,3 +46,7 @@ Close
     </div>
   </div>
 );
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+};
