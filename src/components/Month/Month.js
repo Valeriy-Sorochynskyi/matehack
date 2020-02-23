@@ -90,15 +90,6 @@ class Month extends React.Component {
     return days;
   }
 
-  clickOnDay = (e) => {
-    if (e.target.localName !== 'button') {
-      return;
-    }
-
-    // eslint-disable-next-line no-console
-    console.dir(e.target.name);
-  }
-
   setName = (year, month, day, hour) => {
     if (hour) {
       return new Date(year, month, (day + 1), hour).valueOf();
