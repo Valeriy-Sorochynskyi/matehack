@@ -49,3 +49,24 @@ export const months = {
   11: 'November',
   12: 'December',
 };
+
+export const todos = [
+  {
+    id: 1583445600000,
+    title: 'Сelebration of the end of the hackathon 1',
+    description: 'Duis lobortis massa imperdiet quam. '
+        + 'Praesent ut ligula non mi varius sagittis.',
+  },
+  {
+    id: 1583445600000,
+    title: 'Сelebration of the end of the hackathon 2',
+    description: 'Duis lobortis massa imperdiet quam. '
+        + 'Praesent ut ligula non mi varius sagittis.',
+  },
+  {
+    id: 1583445800000,
+    title: 'Сelebration of the end of the hackathon 3',
+    description: 'Duis lobortis massa imperdiet quam. '
+        + 'Praesent ut ligula non mi varius sagittis.',
+  },
+];

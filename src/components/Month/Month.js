@@ -8,27 +8,6 @@ import {
   daysTitle,
 } from '../../utils/constants';
 
-// const todos = [
-//   {
-//     id: 123456789,
-//     title: 'Сelebration of the end of the hackathon 1',
-//     description: 'Duis lobortis massa imperdiet quam. '
-//         + 'Praesent ut ligula non mi varius sagittis.',
-//   },
-//   {
-//     id: 123456790,
-//     title: 'Сelebration of the end of the hackathon 2',
-//     description: 'Duis lobortis massa imperdiet quam. '
-//         + 'Praesent ut ligula non mi varius sagittis.',
-//   },
-//   {
-//     id: 123456791,
-//     title: 'Сelebration of the end of the hackathon 3',
-//     description: 'Duis lobortis massa imperdiet quam. '
-//         + 'Praesent ut ligula non mi varius sagittis.',
-//   },
-// ];
-
 class Month extends React.Component {
   state = {
     daysArr: [],
@@ -42,6 +21,19 @@ class Month extends React.Component {
     this.setState({
       daysArr: [...this.getDaysArr(year, month)],
     });
+  }
+
+  componentDidUpdate(prevProps, PrevState) {
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    if (date !== prevProps.date) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        daysArr: [...this.getDaysArr(year, month)],
+      });
+    }
   }
 
   getDaysArr = (year, month) => {
@@ -75,14 +67,15 @@ class Month extends React.Component {
     };
 
     const clearDayEnd = () => {
-      const clearArr = [];
-      let count = initialDate + 1;
+      let clearArr = [];
 
       while (clearArr.length <= initialDateCel
       - daysTitle.indexOf(startDay) - 1
       - currentMonth.length) {
-        clearArr.push(new Date(year, month - 1, count).getDate() - 1);
-        count += 1;
+        clearArr = [
+          ...clearArr,
+          '',
+        ];
       }
 
       return clearArr;
@@ -137,14 +130,16 @@ class Month extends React.Component {
           </thead>
           <tbody>
             <tr className="table__scope">
-              {daysArr.map(day => (
+              {daysArr.map((day, index) => (
                 <td
                   className="table__cell"
-                  key={`month${this.setName(year, month, day)}`}
+                  key={String(Math.random())}
                 >
                   <Button
                     onClick={this.clickOnDay}
-                    btnName={this.setName(year, month, day)}
+                    btnName={day === ''
+                      ? ''
+                      : `${this.setName(year, month, day)}`}
                   >
                     <span className="badge badge-primary badge-pill">
                       {day + 1}
