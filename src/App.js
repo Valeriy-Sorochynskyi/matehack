@@ -13,8 +13,21 @@ class App extends React.Component {
     content: 'month',
     currentDate: currentTime,
     isModalOpen: true,
+    // title: '',
+    // todos: [],
+
     // targetId: '',
   };
+
+  // componentDidMount() {
+  //   this.setState({
+  //     todos: tasks,
+  //   });
+  // }
+
+  // changeHandler = ({ target }) => {
+  //   this.setState({ title: target.value });
+  // }
 
   getContent = (event) => {
     const { name } = event.target;
