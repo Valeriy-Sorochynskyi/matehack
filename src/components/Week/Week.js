@@ -31,11 +31,16 @@ class Week extends React.Component {
       const date = [];
       const years = [];
       const initial = new Date(param.getTime());
+      const currentMonth = initial.getMonth();
+      const currentYear = initial.getFullYear();
 
       for (let i = 0; i <= 6; i += 1) {
-        const first = initial.getDate() - initial.getDay() + i;
-        const day = new Date(initial.setDate(first)).toISOString().slice(5, 7);
-        const year = new Date(initial.setDate(first)).toISOString().slice(0, 4);
+        const currentDate = initial.getDate() + i;
+        const newDate = new Date(currentYear, currentMonth, currentDate);
+
+        const first = newDate.getDate();
+        const day = newDate.getMonth() + 1;
+        const year = newDate.getFullYear();
 
         month.push(day);
         date.push(first);
@@ -55,7 +60,7 @@ class Week extends React.Component {
       return (
         <>
           <div className="date__heading">
-            {`${date[0]} - ${date[6]} ${months[+month[6]]} ${years[6]}`}
+            {`${date[0]} - ${date[6]} ${months[month[6]]} ${years[6]}`}
           </div>
           <table className="table table-hover">
             <thead>
@@ -65,7 +70,9 @@ class Week extends React.Component {
                   <td key={day} className="table__heading-column">
                     {day}
                     <br />
-                    {`${date[index]}-${month[index]}`}
+                    {month[index] < 10
+                      ? `${date[index]}-0${month[index]}`
+                      : `${date[index]}-${month[index]}`}
                   </td>
                 ))}
               </tr>
