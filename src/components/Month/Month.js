@@ -1,10 +1,9 @@
 import React from 'react';
 import './Month.css';
-import 'bootswatch/dist/lux/bootstrap.min.css';
+import PropTypes from 'prop-types';
 import { Button } from '../Button/Button';
 import {
-  monthNow,
-  yearNow,
+  months,
   daysTitle,
 } from '../../utils/constants';
 
@@ -14,9 +13,26 @@ class Month extends React.Component {
   };
 
   componentDidMount() {
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
     this.setState({
-      daysArr: [...this.getDaysArr(yearNow, monthNow)],
+      daysArr: [...this.getDaysArr(year, month)],
     });
+  }
+
+  componentDidUpdate(prevProps, PrevState) {
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+
+    if (date !== prevProps.date) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        daysArr: [...this.getDaysArr(year, month)],
+      });
+    }
   }
 
   getDaysArr = (year, month) => {
@@ -48,12 +64,15 @@ class Month extends React.Component {
     };
 
     const clearDayEnd = () => {
-      const clearArr = [];
+      let clearArr = [];
 
       while (clearArr.length <= initialDateCel
       - daysTitle.indexOf(startDay) - 1
       - currentMonth.length) {
-        clearArr.push('');
+        clearArr = [
+          ...clearArr,
+          '',
+        ];
       }
 
       return clearArr;
@@ -77,13 +96,27 @@ class Month extends React.Component {
     console.dir(e.target.name);
   }
 
+  setName = (year, month, day, hour) => {
+    if (hour) {
+      return new Date(year, month, (day + 1), hour).valueOf();
+    }
+
+    return new Date(year, month, (day + 1)).valueOf();
+  }
+
   render() {
     const { daysArr } = this.state;
-    // const { date } = this.props;
+    const { date } = this.props;
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
 
     return (
       <>
-        {/* <h2>{date}</h2> */}
+        <h2 className="title">
+          {year}
+          {' '}
+          {months[month]}
+        </h2>
         <table className="table">
           <thead>
             <tr className="table__scope">
@@ -94,13 +127,16 @@ class Month extends React.Component {
           </thead>
           <tbody>
             <tr className="table__scope">
-              {daysArr.map(day => (
-                <td className="table__cell" key={`day${day + 1}`}>
+              {daysArr.map((day, index) => (
+                <td
+                  className="table__cell"
+                  key={String(Math.random())}
+                >
                   <Button
                     onClick={this.clickOnDay}
                     btnName={day === ''
                       ? ''
-                      : `${yearNow}-${monthNow}-${(day + 1)}`}
+                      : `${this.setName(year, month, day)}`}
                   >
                     <span className="badge badge-primary badge-pill">
                       { day !== '' ? day + 1 : day}
@@ -117,3 +153,10 @@ class Month extends React.Component {
 }
 
 export default Month;
+
+Month.propTypes = {
+  date: PropTypes.shape({
+    getFullYear: PropTypes.func.isRequired,
+    getMonth: PropTypes.func.isRequired,
+  }).isRequired,
+};

@@ -22,5 +22,5 @@ export class Content extends React.Component {
 
 Content.propTypes = {
   content: Proptypes.string.isRequired,
-  date: Proptypes.string.isRequired,
+  date: Proptypes.shape({}).isRequired,
 };

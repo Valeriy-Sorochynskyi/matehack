@@ -1,6 +1,7 @@
 import React from 'react';
 import './utils/reset.css';
 import './App.css';
+// eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
 import { currentTime } from './utils/constants';
 import { Content } from './components/Content/Content';
