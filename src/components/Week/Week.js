@@ -94,11 +94,7 @@ class Week extends React.Component {
                   </th>
                   {arrWeek.map((day, i) => (
                     <td key={day} className="table__column">
-                      <Button
-                        btnName={day === ''
-                          ? ''
-                          : `${this.setName(years[i], month[i], day, hour)}`}
-                      />
+                      <Button onClick={() => {}} />
                     </td>
                   ))}
                 </tr>
