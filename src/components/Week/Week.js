@@ -54,6 +54,14 @@ class Week extends React.Component {
       });
     }
 
+    setName = (year, month, day, hour) => {
+      if (hour) {
+        return new Date(year, month, (day + 1), hour).valueOf();
+      }
+
+      return new Date(year, month, (day + 1)).valueOf();
+    }
+
     render() {
       const { month, date, years } = this.state;
 
@@ -79,22 +87,18 @@ class Week extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr className="table__row">
-                <th className="table__body-column">All days</th>
-                {arrWeek.map(day => (
-                  <td key={day} className="table__column">
-                    <Button />
-                  </td>
-                ))}
-              </tr>
               {arrHours.map(hour => (
-                <tr className="table__row">
+                <tr key={hour} className="table__row">
                   <th className="table__body-column">
                     {hour < 10 ? `0${hour}:00` : `${hour}:00`}
                   </th>
-                  {arrWeek.map(day => (
+                  {arrWeek.map((day, i) => (
                     <td key={day} className="table__column">
-                      <Button />
+                      <Button
+                        btnName={day === ''
+                          ? ''
+                          : `${this.setName(years[i], month[i], day, hour)}`}
+                      />
                     </td>
                   ))}
                 </tr>
