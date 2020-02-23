@@ -60,7 +60,6 @@ class App extends React.Component {
         {isModalOpen && <Modal />}
         <h1>Calendar</h1>
 
-        <Header getContent={this.getContent} date={currentDate} />
         <Header
           getContent={this.getContent}
           date={currentDate}
