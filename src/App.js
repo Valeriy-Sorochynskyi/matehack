@@ -61,23 +61,47 @@ class App extends React.Component {
 
       default: break;
     }
-    // const nextMonth = new Date(currentDate.getTime()).getMonth() + 1;
-
-    // this.setState({
-    //   currentDate: new Date(year, nextMonth, date),
-    // });
   }
 
   goPrev = () => {
-    const { currentDate } = this.state;
+    const { currentDate, content } = this.state;
     const year = currentDate.getFullYear();
     const date = currentDate.getDate();
+    const month = currentDate.getMonth();
 
-    const nextMonth = new Date(currentDate.getTime()).getMonth() - 1;
+    switch (content) {
+      case 'month': {
+        const nextMonth = new Date(currentDate.getTime()).getMonth() - 1;
 
-    this.setState({
-      currentDate: new Date(year, nextMonth, date),
-    });
+        this.setState({
+          currentDate: new Date(year, nextMonth, date),
+        });
+      }
+
+        break;
+
+      case 'week': {
+        const nextWeek = new Date(currentDate.getTime()).getDate() - 7;
+
+        this.setState({
+          currentDate: new Date(year, month, nextWeek),
+        });
+      }
+
+        break;
+
+      case 'day': {
+        const nextDay = new Date(currentDate.getTime()).getDate() - 1;
+
+        this.setState({
+          currentDate: new Date(year, month, nextDay),
+        });
+      }
+
+        break;
+
+      default: break;
+    }
   }
 
   goToday = () => {
