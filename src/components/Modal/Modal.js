@@ -1,13 +1,14 @@
 import React from 'react';
 import './Modal.css';
 
-export const Modal = () => (
+export const Modal = ({ onClose }) => (
   <div className="modal">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
         <div className="modal-header">
           <h5 className="modal-title">Modal title</h5>
           <button
+            onClick={onClose}
             type="button"
             className="close"
             data-dismiss="modal"
@@ -27,6 +28,7 @@ export const Modal = () => (
 Save changes
           </button>
           <button
+            onClick={onClose}
             type="button"
             className="btn btn-secondary"
             data-dismiss="modal"

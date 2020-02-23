@@ -4,6 +4,7 @@ import './App.css';
 // eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
 import { currentTime } from './utils/constants';
+import { Modal } from './components/Modal/Modal';
 import { Content } from './components/Content/Content';
 import { Header } from './components/Header/Header';
 
@@ -11,6 +12,7 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
+    isModalOpen: true,
   };
 
   getContent = (event) => {
@@ -45,6 +47,12 @@ class App extends React.Component {
     });
   }
 
+  handleModalClose = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  }
+
   goToday = () => {
     this.setState({
       currentDate: new Date(),
@@ -52,7 +60,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { content, currentDate } = this.state;
+    const { content, currentDate, isModalOpen } = this.state;
 
     return (
       <>
@@ -65,6 +73,7 @@ class App extends React.Component {
           goToday={this.goToday}
         />
         <Content content={content} date={currentDate} />
+        {isModalOpen && <Modal onClose={this.handleModalClose} />}
       </>
     );
   }
