@@ -12,7 +12,7 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
-    isModalOpen: false,
+    isModalOpen: true,
   };
 
   getContent = (event) => {
@@ -105,6 +105,12 @@ class App extends React.Component {
     }
   }
 
+  handleModalClose = () => {
+    this.setState({
+      isModalOpen: false,
+    });
+  }
+
   goToday = () => {
     this.setState({
       currentDate: new Date(),
@@ -127,6 +133,7 @@ class App extends React.Component {
           goToday={this.goToday}
         />
         <Content content={content} date={currentDate} />
+        {isModalOpen && <Modal onClose={this.handleModalClose} />}
       </>
     );
   }
