@@ -44,5 +44,7 @@ export class Day extends React.Component {
 }
 
 Day.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.shape({
+    getDay: PropTypes.func,
+  }).isRequired,
 };
