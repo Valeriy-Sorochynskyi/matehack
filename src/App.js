@@ -3,7 +3,7 @@ import './utils/reset.css';
 import './App.css';
 // eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
-import { currentTime } from './utils/constants';
+import { currentTime, todos as tasks } from './utils/constants';
 import { Modal } from './components/Modal/Modal';
 import { Content } from './components/Content/Content';
 import { Header } from './components/Header/Header';
@@ -12,22 +12,21 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
-    isModalOpen: true,
-    // title: '',
-    // todos: [],
-
-    // targetId: '',
+    isModalOpen: false,
+    title: '',
+    todos: [],
+    targetId: '',
   };
 
-  // componentDidMount() {
-  //   this.setState({
-  //     todos: tasks,
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      todos: tasks,
+    });
+  }
 
-  // changeHandler = ({ target }) => {
-  //   this.setState({ title: target.value });
-  // }
+  changeHandler = ({ target }) => {
+    this.setState({ title: target.value });
+  }
 
   getContent = (event) => {
     const { name } = event.target;
@@ -132,12 +131,20 @@ class App extends React.Component {
 
     this.setState({
       isModalOpen: true,
-      // targetId: e.target.name,
+      targetId: e.target.name,
     });
   }
 
   createEvent = (e) => {
     e.preventDefault();
+    this.setState(prevstate => ({
+      ...prevstate,
+      todos: [...prevstate.todos, {
+        id: prevstate.targetId,
+        title: prevstate.title,
+      }],
+      title: '',
+    }));
   }
 
   goToday = () => {
@@ -147,12 +154,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { content, currentDate, isModalOpen } = this.state;
+    const { content, currentDate, isModalOpen, title } = this.state;
 
     return (
       <>
-        {isModalOpen && <Modal />}
-        <h1>Calendar</h1>
+        {/* {isModalOpen && <Modal title={title} />}
+        <h1>Calendar</h1> */}
 
         <Header
           getContent={this.getContent}
@@ -170,6 +177,8 @@ class App extends React.Component {
           <Modal
             onClose={this.handleModalClose}
             onSave={this.createEvent}
+            changeHandler={this.changeHandler}
+            title={title}
           />
         )}
       </>
