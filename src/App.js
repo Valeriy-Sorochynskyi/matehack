@@ -13,6 +13,7 @@ class App extends React.Component {
     content: 'month',
     currentDate: currentTime,
     isModalOpen: true,
+    // targetId: '',
   };
 
   getContent = (event) => {
@@ -111,6 +112,21 @@ class App extends React.Component {
     });
   }
 
+  clickOnDay = (e) => {
+    if (e.target.localName !== 'button') {
+      return;
+    }
+
+    this.setState({
+      isModalOpen: true,
+      // targetId: e.target.name,
+    });
+  }
+
+  createEvent = (e) => {
+    e.preventDefault();
+  }
+
   goToday = () => {
     this.setState({
       currentDate: new Date(),
@@ -132,8 +148,17 @@ class App extends React.Component {
           goPrev={this.goPrev}
           goToday={this.goToday}
         />
-        <Content content={content} date={currentDate} />
-        {isModalOpen && <Modal onClose={this.handleModalClose} />}
+        <Content
+          content={content}
+          date={currentDate}
+          openModal={this.clickOnDay}
+        />
+        {isModalOpen && (
+          <Modal
+            onClose={this.handleModalClose}
+            onSave={this.createEvent}
+          />
+        )}
       </>
     );
   }

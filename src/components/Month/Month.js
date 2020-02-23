@@ -56,11 +56,9 @@ class Month extends React.Component {
     const currentMonth = [...Array(initialDate).keys()];
     const clearDayStart = () => {
       const clearArr = [];
-      let count = -1;
 
       while (clearArr.length <= daysTitle.indexOf(startDay) - 1) {
-        clearArr.push(new Date(year, month - 1, count).getDate());
-        count -= 1;
+        clearArr.push('');
       }
 
       return clearArr.reverse();
@@ -90,15 +88,6 @@ class Month extends React.Component {
     return days;
   }
 
-  clickOnDay = (e) => {
-    if (e.target.localName !== 'button') {
-      return;
-    }
-
-    // eslint-disable-next-line no-console
-    console.dir(e.target.name);
-  }
-
   setName = (year, month, day, hour) => {
     if (hour) {
       return new Date(year, month, (day + 1), hour).valueOf();
@@ -109,7 +98,7 @@ class Month extends React.Component {
 
   render() {
     const { daysArr } = this.state;
-    const { date } = this.props;
+    const { date, openModal } = this.props;
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
@@ -136,13 +125,19 @@ class Month extends React.Component {
                   key={String(Math.random())}
                 >
                   <Button
-                    onClick={this.clickOnDay}
+                    btnClass={
+                      (date.getDate() === day + 1)
+                          && 'day__active'
+                    }
+                    onClick={openModal}
                     btnName={day === ''
                       ? ''
                       : `${this.setName(year, month, day)}`}
                   >
                     <span className="badge badge-primary badge-pill">
-                      {day + 1}
+                      {day === ''
+                        ? ''
+                        : day + 1 }
                     </span>
                   </Button>
                 </td>
@@ -158,7 +153,10 @@ class Month extends React.Component {
 export default Month;
 
 Month.propTypes = {
+  openModal: PropTypes.func.isRequired,
   date: PropTypes.shape({
+    getDate: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
     getFullYear: PropTypes.func.isRequired,
     getMonth: PropTypes.func.isRequired,
   }).isRequired,

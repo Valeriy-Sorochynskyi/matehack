@@ -2,7 +2,7 @@ import React from 'react';
 import './Modal.css';
 import PropTypes from 'prop-types';
 
-export const Modal = ({ onClose }) => (
+export const Modal = ({ onClose, onSave }) => (
   <div className="modal custom__modal">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
@@ -19,19 +19,34 @@ export const Modal = ({ onClose }) => (
           </button>
         </div>
         <div className="modal-body">
-          <form action="#">
-            <input type="text" placeholder="Input title" />
-            <input type="textarea" placeholder="Input description" />
+          <form action="#" onSubmit={onSave}>
+            <div className="form-group row">
+              <label
+                htmlFor="staticEmail"
+                className="col-sm-2 col-form-label"
+              >
+                  Title
+              </label>
+              <div className="col-sm-10">
+                <input
+                  type="text"
+                  placeholder="Input title"
+                  className="form-control"
+                />
+              </div>
+            </div>
+
+            <button
+              name="save"
+              type="submit"
+              className="btn btn-primary"
+            >
+                  Save changes
+            </button>
           </form>
         </div>
         <div className="modal-footer">
-          <button
-            name="save"
-            type="button"
-            className="btn btn-primary"
-          >
-Save changes
-          </button>
+
           <button
             name="close"
             onClick={onClose}
@@ -49,4 +64,5 @@ Close
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
