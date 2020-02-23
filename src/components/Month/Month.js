@@ -8,7 +8,7 @@ import {
   daysTitle,
 } from '../../utils/constants';
 
-class Month extends React.Component {
+class Month extends React.PureComponent {
   state = {
     daysArr: [],
   };
@@ -98,7 +98,7 @@ class Month extends React.Component {
 
   render() {
     const { daysArr } = this.state;
-    const { date, openModal } = this.props;
+    const { date, openModal, todoList } = this.props;
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
@@ -139,6 +139,13 @@ class Month extends React.Component {
                         ? ''
                         : day + 1 }
                     </span>
+                    {todoList
+                      .filter(el => el.id === this.setName(year, month, day))
+                      .map(el => (
+                        <span className="badge badge-danger  badge-pill">
+                          {el.title}
+                        </span>
+                      ))}
                   </Button>
                 </td>
               ))}
@@ -154,6 +161,9 @@ export default Month;
 
 Month.propTypes = {
   openModal: PropTypes.func.isRequired,
+  todoList: PropTypes.arrayOf({
+    todo: PropTypes.shape({}).isRequired,
+  }).isRequired,
   date: PropTypes.shape({
     getDate: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired,

@@ -3,7 +3,7 @@ import './utils/reset.css';
 import './App.css';
 // eslint-disable-next-line import/no-unresolved
 import 'bootswatch/dist/lux/bootstrap.min.css';
-import { currentTime } from './utils/constants';
+import { currentTime, todos } from './utils/constants';
 import { Modal } from './components/Modal/Modal';
 import { Content } from './components/Content/Content';
 import { Header } from './components/Header/Header';
@@ -12,9 +12,9 @@ class App extends React.Component {
   state = {
     content: 'month',
     currentDate: currentTime,
-    isModalOpen: true,
+    isModalOpen: false,
     // title: '',
-    // todos: [],
+    todoList: [...todos],
 
     // targetId: '',
   };
@@ -147,7 +147,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { content, currentDate, isModalOpen } = this.state;
+    const { content, currentDate, isModalOpen, todoList } = this.state;
 
     return (
       <>
@@ -165,6 +165,7 @@ class App extends React.Component {
           content={content}
           date={currentDate}
           openModal={this.clickOnDay}
+          todoList={todoList}
         />
         {isModalOpen && (
           <Modal
