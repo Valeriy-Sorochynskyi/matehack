@@ -20,6 +20,12 @@ class Week extends React.Component {
       this.getWeek(this.props.date);
     }
 
+    componentDidUpdate(prevProps) {
+      if (this.props !== prevProps) {
+        this.getWeek(this.props.date);
+      }
+    }
+
     getWeek = (param) => {
       const month = [];
       const date = [];
